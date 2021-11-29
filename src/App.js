@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ListaDeNotas from "./Components/ListaDeNotas";
 import FormularioCadastro from "./Components/FormularioCadastro";
+import ListaDeCategorias from "./Components/ListaDeCategorias";
 import "./assets/App.css";
 import "./assets/index.css";
 
@@ -10,6 +11,7 @@ class App extends Component {
 
     this.state = {
       notas: [],
+      categorias: [],
     };
   }
 
@@ -30,14 +32,29 @@ class App extends Component {
     console.log("Deletar");
   }
 
+  adicionarCategoria(valorCategoria) {
+    const novoArrayCategorias = [...this.state.categorias, valorCategoria];
+    const novoEstado = { ...this.state, categorias: novoArrayCategorias };
+
+    this.setState(novoEstado);
+  }
   render() {
     return (
       <section className="conteudo">
-        <FormularioCadastro criarNota={this.criarNota.bind(this)} />
-        <ListaDeNotas
-          apagarNota={this.deletarNota.bind(this)}
-          notas={this.state.notas}
+        <FormularioCadastro
+          categorias={this.state.categorias}
+          criarNota={this.criarNota.bind(this)}
         />
+        <main className="conteudo-principal">
+          <ListaDeCategorias
+            adicionarCategoria={this.adicionarCategoria.bind(this)}
+            categorias={this.state.categorias}
+          />
+          <ListaDeNotas
+            apagarNota={this.deletarNota.bind(this)}
+            notas={this.state.notas}
+          />
+        </main>
       </section>
     );
   }
