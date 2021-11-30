@@ -9,6 +9,10 @@ export default class ArrayDeNotas {
     this._inscritos.push(func);
   }
 
+  desinscrever(func) {
+    this._inscritos = this._inscritos.filter((f) => f !== func);
+  }
+
   notificar() {
     //função que é executada quando ocorrer uma mudança em notas
     //para cada um dos inscritos executa a func que é passada por paramêtro
